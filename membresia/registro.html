@@ -22,7 +22,7 @@
         <section class="formulario">
             <h2>Regístrate para Acceder a Nuestra Membresía</h2>
             <p>Únete a nuestra comunidad y disfruta de vehículos exclusivos y beneficios premium.</p>
-            <form action="#" method="post">
+            <form id="register-form">
                 <label for="nombre">Nombre Completo:</label>
                 <input type="text" id="nombre" name="nombre" required>
 
@@ -37,6 +37,7 @@
 
                 <button type="submit" class="btn">Registrarse</button>
             </form>
+            <p id="message" class="message"></p>
             <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>.</p>
         </section>
 
@@ -54,5 +55,48 @@
     <footer>
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const messageElement = document.getElementById('message');
+
+            if (password !== confirmPassword) {
+                messageElement.textContent = 'Las contraseñas no coinciden.';
+                messageElement.style.color = 'red';
+                return;
+            }
+
+            // ADVERTENCIA DE SEGURIDAD:
+            // Este código utiliza localStorage para almacenar datos de usuario, lo cual no es seguro
+            // para una aplicación real. Las contraseñas se guardan en texto plano y son fácilmente
+            // accesibles desde el navegador. Esta implementación es solo para fines de demostración.
+            // En un entorno de producción, se debe utilizar un backend seguro con una base de datos
+            // y un sistema de autenticación robusto.
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userExists = users.find(user => user.email === email);
+
+            if (userExists) {
+                messageElement.textContent = 'El correo electrónico ya está registrado.';
+                messageElement.style.color = 'red';
+                return;
+            }
+
+            users.push({ nombre, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            messageElement.textContent = 'Registro exitoso, ya puede iniciar sesión.';
+            messageElement.style.color = 'green';
+
+            setTimeout(() => {
+                window.location.href = 'reservas.html';
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

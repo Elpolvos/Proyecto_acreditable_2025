@@ -22,7 +22,7 @@
         <section class="formulario">
             <h2>Inicia Sesión en tu Cuenta</h2>
             <p>Accede a tu membresía para gestionar tus reservas y disfrutar de beneficios exclusivos.</p>
-            <form action="#" method="post">
+            <form id="login-form">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" required>
 
@@ -31,6 +31,7 @@
 
                 <button type="submit" class="btn">Iniciar Sesión</button>
             </form>
+            <p id="message" class="message"></p>
             <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a>.</p>
         </section>
 
@@ -43,3 +44,45 @@
             </ul>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+
+            // ADVERTENCIA DE SEGURIDAD:
+            // Este código utiliza localStorage para almacenar datos de usuario, lo cual no es seguro
+            // para una aplicación real. Las contraseñas se guardan en texto plano y son fácilmente
+            // accesibles desde el navegador. Esta implementación es solo para fines de demostración.
+            // En un entorno de producción, se debe utilizar un backend seguro con una base de datos
+            // y un sistema de autenticación robusto.
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.email === email);
+
+            if (user) {
+                if (user.password === password) {
+                    messageElement.textContent = 'Se pudo iniciar sesión correctamente.';
+                    messageElement.style.color = 'green';
+                    // Redirect to dashboard on successful login
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    messageElement.textContent = 'Contraseña incorrecta.';
+                    messageElement.style.color = 'red';
+                }
+            } else {
+                messageElement.textContent = 'Necesita registrarse para poder iniciar sesión.';
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
