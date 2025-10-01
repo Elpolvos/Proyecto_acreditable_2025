@@ -35,27 +35,8 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Sedán Deportivo</td>
-                        <td>2023-10-15</td>
-                        <td>2023-10-20</td>
-                        <td>Activa</td>
-                        <td>
-                            <button class="btn btn-cancelar">Cancelar</button>
-                            <button class="btn btn-modificar">Modificar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>SUV Familiar</td>
-                        <td>2023-10-25</td>
-                        <td>2023-10-30</td>
-                        <td>Activa</td>
-                        <td>
-                            <button class="btn btn-cancelar">Cancelar</button>
-                            <button class="btn btn-modificar">Modificar</button>
-                        </td>
-                    </tr>
+                <tbody id="active-reservations-body">
+                    <!-- Las filas se insertarán dinámicamente aquí -->
                 </tbody>
             </table>
         </section>
@@ -63,13 +44,14 @@
         <!-- Sección de Nueva Reserva -->
         <section class="nueva-reserva">
             <h2>Nueva Reserva</h2>
-            <form action="#" method="post">
+            <form id="reservation-form">
+                <input type="hidden" id="reservation-id" name="reservation-id">
                 <label for="vehiculo">Vehículo:</label>
                 <select id="vehiculo" name="vehiculo" required>
                     <option value="">Selecciona un vehículo</option>
-                    <option value="sedan">Sedán Deportivo</option>
-                    <option value="suv">SUV Familiar</option>
-                    <option value="pickup">Pickup 4x4</option>
+                    <option value="Sedán Deportivo">Sedán Deportivo</option>
+                    <option value="SUV Familiar">SUV Familiar</option>
+                    <option value="Pickup 4x4">Pickup 4x4</option>
                 </select>
 
                 <label for="fecha-inicio">Fecha de Inicio:</label>
@@ -94,19 +76,8 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Sedán Deportivo</td>
-                        <td>2023-09-10</td>
-                        <td>2023-09-15</td>
-                        <td>Completada</td>
-                    </tr>
-                    <tr>
-                        <td>Pickup 4x4</td>
-                        <td>2023-08-20</td>
-                        <td>2023-08-25</td>
-                        <td>Completada</td>
-                    </tr>
+                <tbody id="history-reservations-body">
+                    <!-- Las filas se insertarán dinámicamente aquí -->
                 </tbody>
             </table>
         </section>
@@ -116,5 +87,6 @@
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
     <script src="js/auth.js" defer></script>
+    <script src="js/reservas.js" defer></script>
 </body>
 </html>
