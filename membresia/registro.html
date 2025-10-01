@@ -14,6 +14,8 @@
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="registro.html">Registro</a></li>
                 <li><a href="login.html">Iniciar Sesión</a></li>
+                <li style="display:none;"><a href="perfil.html">Perfil</a></li>
+                <li style="display:none;"><a href="logout.html">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -55,7 +57,7 @@
     <footer>
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="js/auth.js" defer></script>
     <script>
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();

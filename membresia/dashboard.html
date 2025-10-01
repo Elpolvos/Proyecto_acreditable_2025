@@ -12,6 +12,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
+                <li style="display:none;"><a href="registro.html">Registro</a></li>
+                <li style="display:none;"><a href="login.html">Iniciar Sesión</a></li>
                 <li><a href="reservas.html">Reservas</a></li>
                 <li><a href="perfil.html">Perfil</a></li>
                 <li><a href="logout.html">Cerrar Sesión</a></li>
@@ -22,7 +24,7 @@
     <main>
         <!-- Sección de Bienvenida -->
         <section class="bienvenida">
-            <h2>¡Hola, [Nombre del Usuario]!</h2>
+            <h2 id="welcome-message">¡Hola, [Nombre del Usuario]!</h2>
             <p>Gracias por ser parte de nuestra membresía. Aquí puedes gestionar tus alquileres y disfrutar de beneficios exclusivos.</p>
         </section>
 
@@ -30,19 +32,19 @@
         <section class="vehiculos-disponibles">
             <h2>Vehículos Disponibles</h2>
             <div class="vehiculo">
-                <img src="https://images.unsplash.com/photo-1551952237-954a0e68786c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dG95b3RhfGVufDB8fDB8fHww" class="card-img-top" alt="Toyota Modelo 1">
+                <img src="css/imagenes/sedan-deportivo.jpg" class="card-img-top" alt="Sedán Deportivo">
                 <h3>Sedán Deportivo</h3>
                 <p>Precio: $50/día</p>
                 <button class="btn">Reservar Ahora</button>
             </div>
             <div class="vehiculo">
-                <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dG95b3RhJTIwcmF2NHxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Toyota Modelo 2">
+                <img src="css/imagenes/suv-familiar.jpg" class="card-img-top" alt="SUV Familiar">
                 <h3>SUV Familiar</h3>
                 <p>Precio: $70/día</p>
                 <button class="btn">Reservar Ahora</button>
             </div>
             <div class="vehiculo">
-                <img src="https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dG95b3RhJTIwaGlsdXh8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Toyota Modelo 3">
+                <img src="css/imagenes/pickup-4x4.jpg" class="card-img-top" alt="Pickup 4x4">
                 <h3>Pickup 4x4</h3>
                 <p>Precio: $90/día</p>
                 <button class="btn">Reservar Ahora</button>
@@ -93,5 +95,6 @@
     <footer>
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
+    <script src="js/auth.js" defer></script>
 </body>
 </html>

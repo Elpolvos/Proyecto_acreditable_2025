@@ -12,6 +12,8 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
+                <li style="display:none;"><a href="registro.html">Registro</a></li>
+                <li style="display:none;"><a href="login.html">Iniciar Sesión</a></li>
                 <li><a href="dashboard.html">Pagina Principal</a></li>
                 <li><a href="reservas.html">Reservas</a></li>
                 <li><a href="logout.html">Cerrar Sesión</a></li>
@@ -24,8 +26,8 @@
         <section class="informacion-personal">
             <h2>Información Personal</h2>
             <div class="perfil-datos">
-                <p><strong>Nombre:</strong> Juan Pérez</p>
-                <p><strong>Correo Electrónico:</strong> juan.perez@example.com</p>
+                <p><strong>Nombre:</strong> <span id="user-name"></span></p>
+                <p><strong>Correo Electrónico:</strong> <span id="user-email"></span></p>
                 <p><strong>Teléfono:</strong> +123 456 7890</p>
                 <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad, País</p>
             </div>
@@ -72,15 +74,21 @@
             <h2>Vehículos Favoritos</h2>
             <div class="vehiculos-grid">
                 <div class="vehiculo">
-                    <img src="images/carro1.jpg" alt="Sedán Deportivo">
+                    <img src="css/imagenes/sedan-deportivo.jpg" alt="Sedán Deportivo">
                     <h3>Sedán Deportivo</h3>
                     <p>Precio: $50/día</p>
                     <button class="btn">Reservar Ahora</button>
                 </div>
                 <div class="vehiculo">
-                    <img src="images/carro2.jpg" alt="SUV Familiar">
+                    <img src="css/imagenes/suv-familiar.jpg" alt="SUV Familiar">
                     <h3>SUV Familiar</h3>
                     <p>Precio: $70/día</p>
+                    <button class="btn">Reservar Ahora</button>
+                </div>
+                <div class="vehiculo">
+                    <img src="css/imagenes/pickup-4x4.jpg" alt="Pickup 4x4">
+                    <h3>Pickup 4x4</h3>
+                    <p>Precio: $90/día</p>
                     <button class="btn">Reservar Ahora</button>
                 </div>
             </div>
@@ -100,5 +108,15 @@
     <footer>
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
+    <script src="js/auth.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('user-name').textContent = currentUser.nombre;
+                document.getElementById('user-email').textContent = currentUser.email;
+            }
+        });
+    </script>
 </body>
 </html>
