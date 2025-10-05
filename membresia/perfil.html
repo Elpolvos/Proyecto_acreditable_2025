@@ -26,12 +26,13 @@
         <section class="informacion-personal">
             <h2>Información Personal</h2>
             <div class="perfil-datos">
-                <p><strong>Nombre:</strong> <span id="user-name"></span></p>
-                <p><strong>Correo Electrónico:</strong> <span id="user-email"></span></p>
+                <p><strong>Nombre:</strong> <input type="text" id="user-name" disabled></p>
+                <p><strong>Correo Electrónico:</strong> <input type="email" id="user-email" disabled></p>
                 <p><strong>Teléfono:</strong> +123 456 7890</p>
                 <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad, País</p>
             </div>
-            <button class="btn">Editar Perfil</button>
+            <button class="btn" id="edit-profile-btn">Editar Perfil</button>
+            <button class="btn" id="save-profile-btn" style="display:none;">Guardar Cambios</button>
         </section>
 
         <!-- Sección de Historial de Reservas -->
@@ -46,25 +47,8 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Sedán Deportivo</td>
-                        <td>2023-10-15</td>
-                        <td>2023-10-20</td>
-                        <td>Completada</td>
-                    </tr>
-                    <tr>
-                        <td>SUV Familiar</td>
-                        <td>2023-10-25</td>
-                        <td>2023-10-30</td>
-                        <td>Activa</td>
-                    </tr>
-                    <tr>
-                        <td>Pickup 4x4</td>
-                        <td>2023-11-05</td>
-                        <td>2023-11-10</td>
-                        <td>Pendiente</td>
-                    </tr>
+                <tbody id="history-reservations-body">
+                    <!-- Las filas se insertarán dinámicamente aquí -->
                 </tbody>
             </table>
         </section>
@@ -98,9 +82,7 @@
         <section class="configuracion-cuenta">
             <h2>Configuración de la Cuenta</h2>
             <ul>
-                <li><a href="#">Cambiar Contraseña</a></li>
-                <li><a href="#">Actualizar Información de Contacto</a></li>
-                <li><a href="#">Eliminar Cuenta</a></li>
+                <li><a href="#" id="delete-account-btn">Eliminar Cuenta</a></li>
             </ul>
         </section>
     </main>
@@ -109,14 +91,6 @@
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
     <script src="js/auth.js" defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-            if (currentUser) {
-                document.getElementById('user-name').textContent = currentUser.nombre;
-                document.getElementById('user-email').textContent = currentUser.email;
-            }
-        });
-    </script>
+    <script src="js/perfil.js" defer></script>
 </body>
 </html>
