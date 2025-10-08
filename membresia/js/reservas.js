@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 estado: 'Activa',
             };
             reservations.push(newReservation);
+
+            // Store for invoice page and open in new window
+            sessionStorage.setItem('currentReservation', JSON.stringify(newReservation));
+            window.open('factura.html', '_blank');
         }
 
         localStorage.setItem('reservations', JSON.stringify(reservations));

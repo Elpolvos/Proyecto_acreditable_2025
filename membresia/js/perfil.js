@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userNameInput = document.getElementById('user-name');
     const userEmailInput = document.getElementById('user-email');
+    const userPhoneInput = document.getElementById('user-phone');
+    const userAddressInput = document.getElementById('user-address');
     const editProfileBtn = document.getElementById('edit-profile-btn');
     const saveProfileBtn = document.getElementById('save-profile-btn');
     const deleteAccountBtn = document.getElementById('delete-account-btn');
@@ -15,11 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load user data into the form
     userNameInput.value = currentUser.nombre;
     userEmailInput.value = currentUser.email;
+    userPhoneInput.value = currentUser.telefono || '';
+    userAddressInput.value = currentUser.direccion || '';
 
     // --- Edit/Save Profile Logic ---
     editProfileBtn.addEventListener('click', () => {
         userNameInput.disabled = false;
         userEmailInput.disabled = false;
+        userPhoneInput.disabled = false;
+        userAddressInput.disabled = false;
         editProfileBtn.style.display = 'none';
         saveProfileBtn.style.display = 'inline-block';
     });
@@ -27,23 +33,30 @@ document.addEventListener('DOMContentLoaded', () => {
     saveProfileBtn.addEventListener('click', () => {
         const newName = userNameInput.value;
         const newEmail = userEmailInput.value;
+        const newPhone = userPhoneInput.value;
+        const newAddress = userAddressInput.value;
 
-        // Update sessionStorage
-        currentUser.nombre = newName;
-        currentUser.email = newEmail;
-        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-        // Update localStorage
+        // Find user in localStorage with the email stored in session before changes
         let users = JSON.parse(localStorage.getItem('users')) || [];
-        const userIndex = users.findIndex(user => user.email === currentUser.email || user.nombre === currentUser.nombre);
+        const userIndex = users.findIndex(user => user.email === currentUser.email);
+
         if (userIndex !== -1) {
+            // Update user data in localStorage
             users[userIndex].nombre = newName;
             users[userIndex].email = newEmail;
+            users[userIndex].telefono = newPhone;
+            users[userIndex].direccion = newAddress;
             localStorage.setItem('users', JSON.stringify(users));
+
+            // Update sessionStorage with the new data
+            sessionStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
         }
 
+        // Disable fields and toggle buttons
         userNameInput.disabled = true;
         userEmailInput.disabled = true;
+        userPhoneInput.disabled = true;
+        userAddressInput.disabled = true;
         editProfileBtn.style.display = 'inline-block';
         saveProfileBtn.style.display = 'none';
 

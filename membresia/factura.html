@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de Alquiler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: sans-serif;
+        }
+        #factura-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            max-width: 800px;
+        }
+        .factura-header, .factura-body, .factura-footer {
+            margin-bottom: 20px;
+        }
+        .empresa-info, .cliente-info {
+            width: 48%;
+            display: inline-block;
+            vertical-align: top;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="factura-container">
+        <div class="factura-header">
+            <h1>Factura de Alquiler</h1>
+            <div class="empresa-info">
+                <h3>Autoservicios Roa H</h3>
+                <p>La avenida 19 de abril frente al farma todo por el viaducto nuevo</p>
+            </div>
+            <div class="cliente-info">
+                <h3>Cliente</h3>
+                <p id="cliente-nombre"></p>
+                <p id="cliente-direccion"></p>
+            </div>
+        </div>
+        <div class="factura-body">
+            <h3>Detalles de la Reserva</h3>
+            <p><strong>Fecha de Emisión:</strong> <span id="fecha-emision"></span></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehículo</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Días</th>
+                        <th>Precio por Día</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="vehiculo-nombre"></td>
+                        <td id="fecha-inicio"></td>
+                        <td id="fecha-fin"></td>
+                        <td id="dias-alquiler"></td>
+                        <td id="precio-dia"></td>
+                        <td id="precio-total"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="factura-footer text-center">
+            <p>Gracias por su preferencia.</p>
+        </div>
+    </div>
+    <div class="text-center" style="margin-top: 20px;">
+        <button id="download-pdf-btn" class="btn">Descargar Factura en PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/factura.js"></script>
+</body>
+</html>
