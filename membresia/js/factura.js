@@ -42,17 +42,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PDF Generation ---
     const downloadPdfBtn = document.getElementById('download-pdf-btn');
     downloadPdfBtn.addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        const facturaContainer = document.getElementById('factura-container');
 
-        doc.html(facturaContainer, {
-            callback: function (doc) {
-                doc.save(`factura-${currentUser.nombre.replace(/\s/g, '_')}-${currentReservation.id}.pdf`);
-            },
-            x: 10,
-            y: 10,
-            width: 190,
-            windowWidth: facturaContainer.offsetWidth
+        // --- Header ---
+        doc.setFontSize(20);
+        doc.text("Factura de Alquiler", 105, 25, { align: "center" });
+
+        // --- Company and Client Info ---
+        doc.setFontSize(12);
+        doc.text("Autoservicios Roa H", 20, 40);
+        doc.text("La avenida 19 de abril frente al farma todo por el viaducto nuevo", 20, 46);
+
+        doc.text(`Cliente: ${currentUser.nombre}`, 120, 40);
+        doc.text(`Dirección: ${currentUser.direccion || 'N/A'}`, 120, 46);
+
+        // --- Invoice Details ---
+        doc.setFontSize(14);
+        doc.text("Detalles de la Reserva", 20, 65);
+        doc.setFontSize(12);
+        doc.text(`Fecha de Emisión: ${new Date().toLocaleDateString()}`, 20, 72);
+
+        // --- Table ---
+        doc.autoTable({
+            startY: 80,
+            head: [['Vehículo', 'Fecha de Inicio', 'Fecha de Fin', 'Días', 'Precio por Día', 'Total']],
+            body: [
+                [
+                    vehiculoNombre,
+                    fechaInicio.toLocaleDateString(),
+                    fechaFin.toLocaleDateString(),
+                    diffDays,
+                    `$${precioDia.toFixed(2)}`,
+                    `$${precioTotal.toFixed(2)}`
+                ]
+            ],
+            theme: 'striped',
+            headStyles: { fillColor: [22, 160, 133] }
         });
+
+        // --- Footer ---
+        const finalY = doc.lastAutoTable.finalY + 20;
+        doc.setFontSize(12);
+        doc.text("Gracias por su preferencia.", 105, finalY, { align: "center" });
+
+        // --- Save PDF ---
+        const safeName = currentUser.nombre.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        doc.save(`factura-${safeName}.pdf`);
     });
 });
