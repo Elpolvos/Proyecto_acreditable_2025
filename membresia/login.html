@@ -74,12 +74,31 @@
                     messageElement.textContent = 'Se pudo iniciar sesión correctamente.';
                     messageElement.style.color = 'green';
 
-                    // Guardar el usuario actual en sessionStorage para gestionar la sesión
+                    // Asignar rol basado en el email (solución para la demo para arreglar la vulnerabilidad)
+                    let role = 'usuario'; // Rol por defecto
+                    if (email === 'admin@example.com') {
+                        role = 'admin';
+                    } else if (email === 'employee@example.com') {
+                        role = 'empleado';
+                    }
+
+                    user.role = role;
                     sessionStorage.setItem('currentUser', JSON.stringify(user));
 
-                    // Redirect to dashboard on successful login
+                    // Redirigir según el rol
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        switch (role) {
+                            case 'admin':
+                                window.location.href = 'admin.html';
+                                break;
+                            case 'empleado':
+                                window.location.href = 'employee.html';
+                                break;
+                            case 'usuario':
+                            default:
+                                window.location.href = 'dashboard.html';
+                                break;
+                        }
                     }, 2000);
                 } else {
                     messageElement.textContent = 'Contraseña incorrecta.';

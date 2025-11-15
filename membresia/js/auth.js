@@ -23,6 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navPerfilLi) navPerfilLi.style.display = 'list-item';
         if (navLogoutLi) navLogoutLi.style.display = 'list-item';
 
+        // Show role-specific links
+        const adminLink = document.getElementById('admin-link');
+        const employeeLink = document.getElementById('employee-link');
+
+        if (currentUser.role === 'admin' && adminLink) {
+            adminLink.style.display = 'list-item';
+        }
+        if (currentUser.role === 'empleado' && employeeLink) {
+            employeeLink.style.display = 'list-item';
+        }
+
         if (welcomeMessage) {
             if (welcomeMessage.textContent.includes('¡Hola')) {
                 welcomeMessage.textContent = `¡Hola, ${currentUser.nombre}!`;

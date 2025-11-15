@@ -99,6 +99,38 @@
                 window.location.href = 'reservas.html';
             }, 2000);
         });
+
+        // Función para inicializar usuarios por defecto para la demostración
+        function initializeDefaultUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const defaultUsers = [
+                {
+                    nombre: 'Admin User',
+                    email: 'admin@example.com',
+                    password: 'adminpassword',
+                    role: 'admin'
+                },
+                {
+                    nombre: 'Employee User',
+                    email: 'employee@example.com',
+                    password: 'employeepassword',
+                    role: 'empleado'
+                }
+            ];
+
+            defaultUsers.forEach(defaultUser => {
+                const userExists = users.find(user => user.email === defaultUser.email);
+                if (!userExists) {
+                    users.push(defaultUser);
+                }
+            });
+
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Inicializar usuarios por defecto al cargar la página
+        initializeDefaultUsers();
     </script>
 </body>
 </html>
