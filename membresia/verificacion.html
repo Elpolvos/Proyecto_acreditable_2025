@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completar Registro - Verificación</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Verificación de Identidad</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Pagina Principal</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="logout.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="formulario">
+            <h2>Completa tu Perfil para Reservar</h2>
+            <form id="verification-form">
+                <!-- Datos personales -->
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" disabled>
+
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" disabled>
+                <button type="button" id="verify-email-btn" class="btn">Verificar Correo</button>
+
+                <!-- Contenedor para el código de verificación de correo -->
+                <div id="email-code-container" style="display: none;">
+                    <label for="email-code">Código de Verificación:</label>
+                    <input type="text" id="email-code" name="email-code">
+                    <button type="button" id="verify-code-btn" class="btn">Verificar Código</button>
+                </div>
+
+                <label for="telefono">Número de Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+                <button type="button" id="verify-phone-btn" class="btn">Verificar Teléfono</button>
+
+                <label for="direccion">Dirección Completa:</label>
+                <input type="text" id="direccion" name="direccion" required>
+
+                <!-- Verificación de identidad -->
+                <h3>Verificación de Identidad</h3>
+                <label for="tipo-documento">Tipo de Documento:</label>
+                <select id="tipo-documento" name="tipo-documento" required>
+                    <option value="cedula">Cédula</option>
+                    <option value="pasaporte">Pasaporte</option>
+                </select>
+
+                <label for="numero-documento">Número de Documento:</label>
+                <input type="text" id="numero-documento" name="numero-documento" required>
+
+                <label for="foto-documento">Foto del Documento:</label>
+                <input type="file" id="foto-documento" name="foto-documento" accept="image/*" required>
+
+                <button type="submit" id="submit-btn" class="btn" disabled>Guardar y Continuar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/verificacion.js" defer></script>
+</body>
+</html>

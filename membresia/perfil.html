@@ -25,14 +25,21 @@
         <!-- Sección de Información Personal -->
         <section class="informacion-personal">
             <h2>Información Personal</h2>
-            <div class="perfil-datos">
-                <p><strong>Nombre:</strong> <input type="text" id="user-name" disabled></p>
-                <p><strong>Correo Electrónico:</strong> <input type="email" id="user-email" disabled></p>
-                <p><strong>Teléfono:</strong> <input type="tel" id="user-phone" value="+123 456 7890" disabled></p>
-                <p><strong>Dirección:</strong> <input type="text" id="user-address" value="Calle Falsa 123, Ciudad, País" disabled></p>
+            <div class="perfil-carnet">
+                <div class="carnet-header">
+                    <h3>Perfil de Usuario</h3>
+                </div>
+                <div class="carnet-body">
+                    <img id="user-photo" src="" alt="Foto de perfil" class="profile-photo">
+                    <div class="carnet-info">
+                        <p><strong>Nombre:</strong> <span id="user-name"></span></p>
+                        <p><strong>Email:</strong> <span id="user-email"></span></p>
+                        <p><strong>Teléfono:</strong> <span id="user-phone"></span></p>
+                        <p><strong>Dirección:</strong> <span id="user-address"></span></p>
+                        <p><strong>Documento:</strong> <span id="user-document"></span></p>
+                    </div>
+                </div>
             </div>
-            <button class="btn" id="edit-profile-btn">Editar Perfil</button>
-            <button class="btn" id="save-profile-btn" style="display:none;">Guardar Cambios</button>
         </section>
 
         <!-- Sección de Historial de Reservas -->
