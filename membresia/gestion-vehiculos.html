@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Vehículos - Administración</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Vehículos</h1>
+        <nav>
+            <ul>
+                <li><a href="admin.html">Volver al Panel</a></li>
+                <li><a href="logout.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="formulario">
+            <h2>Agregar o Editar Vehículo</h2>
+            <form id="vehicle-form">
+                <input type="hidden" id="vehicle-id">
+                <label for="vehicle-name">Nombre del Vehículo:</label>
+                <input type="text" id="vehicle-name" required>
+                <label for="vehicle-price">Precio por día:</label>
+                <input type="text" id="vehicle-price" required>
+                <label for="vehicle-image">URL de la Imagen:</label>
+                <input type="text" id="vehicle-image" required>
+                <button type="submit" class="btn">Guardar Vehículo</button>
+            </form>
+        </section>
+
+        <section class="vehiculos-list">
+            <h2>Vehículos Existentes</h2>
+            <table id="vehicles-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas de la tabla se insertarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/gestion-vehiculos.js" defer></script>
+</body>
+</html>
