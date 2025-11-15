@@ -43,16 +43,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadPdfBtn = document.getElementById('download-pdf-btn');
     downloadPdfBtn.addEventListener('click', () => {
         const doc = new jsPDF();
-        const facturaContainer = document.getElementById('factura-container');
 
-        doc.html(facturaContainer, {
-            callback: function (doc) {
-                doc.save(`factura-${currentUser.nombre.replace(/\s/g, '_')}-${currentReservation.id}.pdf`);
-            },
-            x: 10,
-            y: 10,
-            width: 190,
-            windowWidth: facturaContainer.offsetWidth
+        // Title
+        doc.setFontSize(22);
+        doc.text('Factura de Reserva', 20, 20);
+
+        // Client Info
+        doc.setFontSize(12);
+        doc.text('Cliente:', 20, 40);
+        doc.text(currentUser.nombre, 50, 40);
+        doc.text('Dirección:', 20, 50);
+        doc.text(currentUser.direccion || 'N/A', 50, 50);
+        doc.text('Fecha de Emisión:', 20, 60);
+        doc.text(new Date().toLocaleDateString(), 50, 60);
+
+        // Invoice Details Table
+        const tableColumn = ["Descripción", "Detalle"];
+        const tableRows = [
+            ["Vehículo", vehiculoNombre],
+            ["Fecha de Inicio", fechaInicio.toLocaleDateString()],
+            ["Fecha de Fin", fechaFin.toLocaleDateString()],
+            ["Días de Alquiler", diffDays],
+            ["Precio por Día", `$${precioDia.toFixed(2)}`],
+            ["Precio Total", `$${precioTotal.toFixed(2)}`]
+        ];
+
+        doc.autoTable({
+            startY: 80,
+            head: [tableColumn],
+            body: tableRows,
+            theme: 'striped',
+            headStyles: { fillColor: [22, 160, 133] },
         });
+
+        doc.save(`factura-${currentUser.nombre.replace(/\s/g, '_')}-${currentReservation.id}.pdf`);
     });
 });
