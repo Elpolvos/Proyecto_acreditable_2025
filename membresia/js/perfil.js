@@ -5,63 +5,34 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const userNameInput = document.getElementById('user-name');
-    const userEmailInput = document.getElementById('user-email');
-    const userPhoneInput = document.getElementById('user-phone');
-    const userAddressInput = document.getElementById('user-address');
-    const editProfileBtn = document.getElementById('edit-profile-btn');
-    const saveProfileBtn = document.getElementById('save-profile-btn');
+    const userNameSpan = document.getElementById('user-name');
+    const userEmailSpan = document.getElementById('user-email');
+    const userPhoneSpan = document.getElementById('user-phone');
+    const userAddressSpan = document.getElementById('user-address');
+    const userDocumentSpan = document.getElementById('user-document');
+    const userPhotoImg = document.getElementById('user-photo');
     const deleteAccountBtn = document.getElementById('delete-account-btn');
     const historyReservationsBody = document.getElementById('history-reservations-body');
 
-    // Load user data into the form
-    userNameInput.value = currentUser.nombre;
-    userEmailInput.value = currentUser.email;
-    userPhoneInput.value = currentUser.telefono || '';
-    userAddressInput.value = currentUser.direccion || '';
+    // Cargar datos básicos del usuario
+    userNameSpan.textContent = currentUser.nombre;
+    userEmailSpan.textContent = currentUser.email;
 
-    // --- Edit/Save Profile Logic ---
-    editProfileBtn.addEventListener('click', () => {
-        userNameInput.disabled = false;
-        userEmailInput.disabled = false;
-        userPhoneInput.disabled = false;
-        userAddressInput.disabled = false;
-        editProfileBtn.style.display = 'none';
-        saveProfileBtn.style.display = 'inline-block';
-    });
+    // Cargar datos de verificación
+    const userVerifications = JSON.parse(localStorage.getItem('userVerifications')) || {};
+    const verificationData = userVerifications[currentUser.email];
 
-    saveProfileBtn.addEventListener('click', () => {
-        const newName = userNameInput.value;
-        const newEmail = userEmailInput.value;
-        const newPhone = userPhoneInput.value;
-        const newAddress = userAddressInput.value;
-
-        // Find user in localStorage with the email stored in session before changes
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const userIndex = users.findIndex(user => user.email === currentUser.email);
-
-        if (userIndex !== -1) {
-            // Update user data in localStorage
-            users[userIndex].nombre = newName;
-            users[userIndex].email = newEmail;
-            users[userIndex].telefono = newPhone;
-            users[userIndex].direccion = newAddress;
-            localStorage.setItem('users', JSON.stringify(users));
-
-            // Update sessionStorage with the new data
-            sessionStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
-        }
-
-        // Disable fields and toggle buttons
-        userNameInput.disabled = true;
-        userEmailInput.disabled = true;
-        userPhoneInput.disabled = true;
-        userAddressInput.disabled = true;
-        editProfileBtn.style.display = 'inline-block';
-        saveProfileBtn.style.display = 'none';
-
-        alert('Perfil actualizado con éxito.');
-    });
+    if (verificationData) {
+        userPhoneSpan.textContent = verificationData.telefono;
+        userAddressSpan.textContent = verificationData.direccion;
+        userDocumentSpan.textContent = `${verificationData.tipoDocumento.toUpperCase()}: ${verificationData.numeroDocumento}`;
+        userPhotoImg.src = verificationData.fotoDocumento;
+    } else {
+        // Opcional: mostrar un mensaje si el perfil no está completo
+        userPhoneSpan.textContent = 'No verificado';
+        userAddressSpan.textContent = 'No verificado';
+        userDocumentSpan.textContent = 'No verificado';
+    }
 
     // --- Delete Account Logic ---
     deleteAccountBtn.addEventListener('click', (e) => {
@@ -76,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
             reservations = reservations.filter(res => res.userEmail !== currentUser.email);
             localStorage.setItem('reservations', JSON.stringify(reservations));
+
+            // Remove user's verification data
+            delete userVerifications[currentUser.email];
+            localStorage.setItem('userVerifications', JSON.stringify(userVerifications));
 
             // Logout
             sessionStorage.removeItem('currentUser');
