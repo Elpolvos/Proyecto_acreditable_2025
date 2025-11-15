@@ -70,13 +70,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    reservationForm.addEventListener('submit', (e) => {
+    const completeProfileModal = document.getElementById('complete-profile-modal');
+
+    const submitButton = reservationForm.querySelector('button[type="submit"]');
+
+    submitButton.addEventListener('click', (e) => {
         e.preventDefault();
+
+        // Verificar si el perfil del usuario está completo
+        const isProfileComplete = currentUser.isProfileComplete || false;
+
+        if (!isProfileComplete) {
+            completeProfileModal.style.display = 'block';
+            return;
+        }
 
         const reservationId = document.getElementById('reservation-id').value;
         const vehiculo = document.getElementById('vehiculo').value;
         const fechaInicio = document.getElementById('fecha-inicio').value;
         const fechaFin = document.getElementById('fecha-fin').value;
+
+        // Simple validation to ensure fields are filled before processing
+        if (!vehiculo || !fechaInicio || !fechaFin) {
+            alert('Por favor, completa todos los campos de la reserva.');
+            return;
+        }
 
         if (reservationId) {
             // Update existing reservation
