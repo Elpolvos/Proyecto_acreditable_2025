@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reserveButtons.forEach(button => {
         button.addEventListener('click', (e) => {
+            // Si el usuario es admin, permitir siempre la reserva
+            if (currentUser.role === 'admin') {
+                return;
+            }
+
             const isProfileComplete = currentUser.isProfileComplete || false;
 
             if (!isProfileComplete) {
