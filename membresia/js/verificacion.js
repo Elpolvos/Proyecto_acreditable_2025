@@ -12,11 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailCodeContainer = document.getElementById('email-code-container');
     const verifyCodeBtn = document.getElementById('verify-code-btn');
     const emailCodeInput = document.getElementById('email-code');
-    const verifyPhoneBtn = document.getElementById('verify-phone-btn');
     const submitBtn = document.getElementById('submit-btn');
 
     let isEmailVerified = false;
-    let isPhoneVerified = false;
 
     // Rellenar datos del usuario
     nombreInput.value = currentUser.nombre;
@@ -43,18 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Simular verificación de teléfono
-    verifyPhoneBtn.addEventListener('click', () => {
-        alert('Se ha enviado un código de verificación a tu teléfono.');
-        isPhoneVerified = true;
-        verifyPhoneBtn.textContent = 'Teléfono Verificado';
-        verifyPhoneBtn.disabled = true;
-        checkVerifications();
-    });
-
-    // Habilitar el botón de envío si ambas verificaciones son correctas
+    // Habilitar el botón de envío si el correo está verificado
     const checkVerifications = () => {
-        if (isEmailVerified && isPhoneVerified) {
+        if (isEmailVerified) {
             submitBtn.disabled = false;
         }
     };
@@ -62,12 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     verificationForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        if (!isEmailVerified || !isPhoneVerified) {
-            alert('Por favor, verifica tu correo y teléfono para continuar.');
+        if (!isEmailVerified) {
+            alert('Por favor, verifica tu correo para continuar.');
             return;
         }
 
-        const telefono = document.getElementById('telefono').value;
         const direccion = document.getElementById('direccion').value;
         const tipoDocumento = document.getElementById('tipo-documento').value;
         const numeroDocumento = document.getElementById('numero-documento').value;
@@ -86,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Guardar datos en una nueva "tabla" en localStorage
             let userVerifications = JSON.parse(localStorage.getItem('userVerifications')) || {};
             userVerifications[currentUser.email] = {
-                telefono,
                 direccion,
                 tipoDocumento,
                 numeroDocumento,
