@@ -6,6 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const vehicleSelect = document.getElementById('vehiculo');
+
+    // Cargar vehículos desde localStorage o usar datos de ejemplo
+    const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [
+        { id: 1, name: 'Sedán Deportivo' },
+        { id: 2, name: 'SUV Familiar' },
+        { id: 3, name: 'Pickup 4x4' }
+    ];
+
+    function populateVehicleOptions() {
+        vehicles.forEach(vehicle => {
+            const option = document.createElement('option');
+            option.value = vehicle.name;
+            option.textContent = vehicle.name;
+            vehicleSelect.appendChild(option);
+        });
+    }
+
     const reservationForm = document.getElementById('reservation-form');
     const activeReservationsBody = document.getElementById('active-reservations-body');
     const historyReservationsBody = document.getElementById('history-reservations-body');
@@ -121,4 +139,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderReservations();
+    populateVehicleOptions();
 });
