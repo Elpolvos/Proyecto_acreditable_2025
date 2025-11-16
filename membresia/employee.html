@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Empleado</title>
+    <title>Panel de Empleado - Alquiler de Vehículos</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -11,18 +11,36 @@
         <h1>Panel de Empleado</h1>
         <nav>
             <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="logout.html">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <h2>Bienvenido, Empleado</h2>
-        <p>Esta es la página de empleado. Aquí podrás gestionar las reservas, pagos y facturas.</p>
+        <section class="admin-panel">
+            <h2>Acciones del Empleado</h2>
+            <div class="panel-buttons">
+                <a href="gestion-reservas.html" class="btn">Gestionar Reservas</a>
+                <a href="gestion-facturas.html" class="btn">Gestionar Pagos y Facturas</a>
+            </div>
+        </section>
     </main>
+
     <footer>
         <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
     </footer>
-    <script src="js/auth.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+            // Proteger la página: solo los empleados pueden acceder
+            if (!currentUser || currentUser.role !== 'empleado') {
+                // Redirigir al login si no es empleado
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 </body>
 </html>

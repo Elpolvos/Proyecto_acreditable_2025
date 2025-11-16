@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPhotoImg = document.getElementById('user-photo');
     const deleteAccountBtn = document.getElementById('delete-account-btn');
     const historyReservationsBody = document.getElementById('history-reservations-body');
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    const saveProfileBtn = document.getElementById('save-profile-btn');
 
     // Cargar datos básicos del usuario
     userNameSpan.textContent = currentUser.nombre;
@@ -76,6 +78,58 @@ document.addEventListener('DOMContentLoaded', () => {
             historyReservationsBody.appendChild(row);
         });
     };
+
+    // --- Admin Edit Logic ---
+    if (currentUser.role === 'admin') {
+        editProfileBtn.style.display = 'block';
+    }
+
+    editProfileBtn.addEventListener('click', () => {
+        // Habilitar edición
+        userNameSpan.innerHTML = `<input type="text" id="user-name-edit" value="${userNameSpan.textContent}">`;
+        userPhoneSpan.innerHTML = `<input type="text" id="user-phone-edit" value="${userPhoneSpan.textContent}">`;
+        userAddressSpan.innerHTML = `<input type="text" id="user-address-edit" value="${userAddressSpan.textContent}">`;
+
+        // Mostrar/ocultar botones
+        editProfileBtn.style.display = 'none';
+        saveProfileBtn.style.display = 'block';
+    });
+
+    saveProfileBtn.addEventListener('click', () => {
+        const newName = document.getElementById('user-name-edit').value;
+        const newPhone = document.getElementById('user-phone-edit').value;
+        const newAddress = document.getElementById('user-address-edit').value;
+
+        // Actualizar UI
+        userNameSpan.textContent = newName;
+        userPhoneSpan.textContent = newPhone;
+        userAddressSpan.textContent = newAddress;
+
+        // Actualizar currentUser en sessionStorage
+        currentUser.nombre = newName;
+        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        // Actualizar en localStorage (users)
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const userIndex = users.findIndex(user => user.email === currentUser.email);
+        if (userIndex !== -1) {
+            users[userIndex].nombre = newName;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Actualizar en localStorage (userVerifications)
+        const userVerifications = JSON.parse(localStorage.getItem('userVerifications')) || {};
+        if (userVerifications[currentUser.email]) {
+            userVerifications[currentUser.email].telefono = newPhone;
+            userVerifications[currentUser.email].direccion = newAddress;
+            localStorage.setItem('userVerifications', JSON.stringify(userVerifications));
+        }
+
+
+        // Mostrar/ocultar botones
+        editProfileBtn.style.display = 'block';
+        saveProfileBtn.style.display = 'none';
+    });
 
     renderReservationHistory();
 });
