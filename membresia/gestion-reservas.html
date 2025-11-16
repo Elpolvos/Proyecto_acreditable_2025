@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas - Empleado</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Reservas</h1>
+        <nav>
+            <ul>
+                <li><a href="employee.html">Volver al Panel</a></li>
+                <li><a href="logout.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="formulario">
+            <h2>Agregar o Editar Reserva</h2>
+            <form id="reservation-form">
+                <input type="hidden" id="reservation-id">
+
+                <label for="user-select">Usuario:</label>
+                <select id="user-select" required></select>
+
+                <label for="vehicle-select">Vehículo:</label>
+                <select id="vehicle-select" required></select>
+
+                <label for="fecha-inicio">Fecha de Inicio:</label>
+                <input type="date" id="fecha-inicio" required>
+
+                <label for="fecha-fin">Fecha de Fin:</label>
+                <input type="date" id="fecha-fin" required>
+
+                <button type="submit" class="btn">Guardar Reserva</button>
+            </form>
+        </section>
+
+        <section class="reservations-list">
+            <h2>Todas las Reservas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario (Email)</th>
+                        <th>Vehículo</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="reservations-table-body">
+                    <!-- Las filas se insertarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.role !== 'empleado') {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+    <script src="js/gestion-reservas.js" defer></script>
+</body>
+</html>
