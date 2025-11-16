@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Facturas - Empleado</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Pagos y Facturas</h1>
+        <nav>
+            <ul>
+                <li><a href="employee.html">Volver al Panel</a></li>
+                <li><a href="logout.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Formulario de edición (puede estar oculto inicialmente) -->
+        <section id="edit-form-section" class="formulario" style="display: none;">
+            <h2>Editar Factura</h2>
+            <form id="edit-invoice-form">
+                <input type="hidden" id="edit-reservation-id">
+                <p><strong>Usuario:</strong> <span id="edit-user-email"></span></p>
+                <p><strong>Vehículo:</strong> <span id="edit-vehicle-name"></span></p>
+
+                <label for="edit-fecha-inicio">Fecha de Inicio:</label>
+                <input type="date" id="edit-fecha-inicio" required>
+
+                <label for="edit-fecha-fin">Fecha de Fin:</label>
+                <input type="date" id="edit-fecha-fin" required>
+
+                <button type="submit" class="btn">Guardar Cambios</button>
+                <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancelar</button>
+            </form>
+        </section>
+
+        <section class="invoice-list">
+            <h2>Todas las Facturas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario (Email)</th>
+                        <th>Vehículo</th>
+                        <th>Período de Alquiler</th>
+                        <th>Costo Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="invoices-table-body">
+                    <!-- Las filas se insertarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            const allowedRoles = ['admin', 'empleado'];
+            if (!currentUser || !allowedRoles.includes(currentUser.role)) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+    <script src="js/gestion-facturas.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceso de Pago</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .payment-option {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        .payment-option:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .payment-option img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seleccione un Método de Pago</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Cancelar y Volver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="payment-selection">
+            <div class="payment-options">
+                <div class="payment-option" data-method="Tarjeta de Crédito">
+                    <img src="css/imagenes/credit-card.png" alt="Tarjeta de Crédito">
+                    <span>Tarjeta de Crédito</span>
+                </div>
+                <div class="payment-option" data-method="Tarjeta de Débito">
+                    <img src="css/imagenes/debit-card.png" alt="Tarjeta de Débito">
+                    <span>Tarjeta de Débito</span>
+                </div>
+                <div class="payment-option" data-method="PayPal">
+                    <img src="css/imagenes/paypal.png" alt="PayPal">
+                    <span>PayPal</span>
+                </div>
+                <div class="payment-option" data-method="MasterCard">
+                    <img src="css/imagenes/mastercard.png" alt="MasterCard">
+                    <span>MasterCard</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de Pago -->
+        <div id="payment-modal" class="modal">
+            <div class="modal-content">
+                <h2 id="modal-title">Introducir Datos de Pago</h2>
+                <form id="payment-form">
+                    <label for="card-number">Número de Tarjeta:</label>
+                    <input type="text" id="card-number" required>
+
+                    <label for="cedula">Número de Cédula:</label>
+                    <input type="text" id="cedula" required>
+
+                    <button type="submit" class="btn">Pagar</button>
+                    <button type="button" id="cancel-payment-btn" class="btn btn-secondary">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Alquiler de Vehículos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/pagos.js" defer></script>
+</body>
+</html>
