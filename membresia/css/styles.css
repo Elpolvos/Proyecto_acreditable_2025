@@ -252,6 +252,14 @@ footer {
     background-color: #e65c00;
 }
 
+.btn-danger {
+    background-color: #ff4d4d;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000;
+}
+
 /* Estilos para los formularios de inicio de sesión y registro */
 .formulario {
     background-color: #fff;
@@ -667,4 +675,9 @@ footer {
 
 .modal-content .btn {
     margin-top: 15px;
+}
+
+/* Estilo específico para el botón de login de administrador */
+.btn-admin-login {
+    color: white !important; /* Asegurar que el color del texto sea blanco */
 }
