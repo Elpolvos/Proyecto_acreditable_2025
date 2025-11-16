@@ -9,12 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // --- Price mapping ---
-    const vehiclePrices = {
-        'Sedán Deportivo': 50,
-        'SUV Familiar': 70,
-        'Pickup 4x4': 90
-    };
+    // Cargar vehículos para buscar el precio
+    const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    const vehicleData = vehicles.find(v => v.name === currentReservation.vehiculo);
 
     // --- Populate Invoice Data ---
     document.getElementById('cliente-nombre').textContent = currentUser.nombre;
@@ -29,7 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const diffTime = Math.abs(fechaFin - fechaInicio);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Include start day
 
-    const precioDia = vehiclePrices[vehiculoNombre] || 0;
+    // --- Robust Price Calculation ---
+    let precioDia = 0;
+    if (vehicleData && vehicleData.price) {
+        if (typeof vehicleData.price === 'string') {
+            // Handle old format like "$50/día"
+            const match = vehicleData.price.match(/(\d+)/);
+            if (match) {
+                precioDia = parseFloat(match[0]);
+            }
+        } else if (typeof vehicleData.price === 'number') {
+            // Handle new numeric format
+            precioDia = vehicleData.price;
+        }
+    }
+
     const precioTotal = diffDays * precioDia;
 
     document.getElementById('vehiculo-nombre').textContent = vehiculoNombre;
